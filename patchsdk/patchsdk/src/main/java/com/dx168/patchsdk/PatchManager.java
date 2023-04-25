@@ -1,5 +1,9 @@
 package com.dx168.patchsdk;
 
+import static com.dx168.patchsdk.utils.SPUtils.KEY_LOADED_PATCH;
+import static com.dx168.patchsdk.utils.SPUtils.KEY_PATCHED_PATCH;
+import static com.dx168.patchsdk.utils.SPUtils.KEY_STAGE;
+
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -7,12 +11,8 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.text.TextUtils;
 import android.util.Log;
-import com.dx168.patchsdk.bean.AppInfo;
-import com.dx168.patchsdk.bean.PatchInfo;
-import com.dx168.patchsdk.utils.DebugUtils;
-import com.dx168.patchsdk.utils.DigestUtils;
-import com.dx168.patchsdk.utils.PatchUtils;
-import com.dx168.patchsdk.utils.SPUtils;
+import com.dx168.patchsdk.bean.*;
+import com.dx168.patchsdk.utils.*;
 import org.json.JSONException;
 import org.json.JSONObject;
 import java.io.ByteArrayOutputStream;
@@ -26,9 +26,6 @@ import java.util.List;
 import java.util.Queue;
 import java.util.Set;
 
-import static com.dx168.patchsdk.utils.SPUtils.KEY_LOADED_PATCH;
-import static com.dx168.patchsdk.utils.SPUtils.KEY_PATCHED_PATCH;
-import static com.dx168.patchsdk.utils.SPUtils.KEY_STAGE;
 
 /**
  * Created by jianjun.lin on 2016/10/26.

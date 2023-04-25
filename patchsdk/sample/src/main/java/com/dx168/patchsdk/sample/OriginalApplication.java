@@ -1,7 +1,7 @@
 package com.dx168.patchsdk.sample;
 
 import android.app.Application;
-import android.support.multidex.MultiDex;
+import androidx.multidex.MultiDex;
 
 /**
  * Created by jianjun.lin on 2016/11/4.

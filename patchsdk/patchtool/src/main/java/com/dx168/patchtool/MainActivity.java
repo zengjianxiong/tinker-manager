@@ -8,7 +8,7 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -30,7 +30,6 @@ import org.json.JSONObject;
 
 import java.io.File;
 
-import okhttp3.Call;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, DebugReceiver.OnReceiveListener {
 
@@ -190,6 +189,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             e.printStackTrace();
                         }
                         Toast.makeText(MainActivity.this, "下载失败!", Toast.LENGTH_LONG).show();
+                    }
+
+                    @Override
+                    public void onError(okhttp3.Call call, Exception e, int id) {
+
                     }
 
                     @Override
