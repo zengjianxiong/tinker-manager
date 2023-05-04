@@ -1,6 +1,8 @@
 package com.dx168.patchsdk;
 
-import com.dx168.patchsdk.utils.IgnoreNullHashMap;
+import android.util.Log;
+
+import com.dx168.patchsdk.utils.*;
 
 import java.io.BufferedWriter;
 import java.io.ByteArrayOutputStream;

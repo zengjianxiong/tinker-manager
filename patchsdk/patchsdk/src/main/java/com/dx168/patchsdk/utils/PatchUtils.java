@@ -8,7 +8,7 @@ import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 import android.util.Log;
 
-import com.dx168.patchsdk.bean.PatchInfo;
+
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -24,6 +24,8 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
 import static com.dx168.patchsdk.PatchManager.JIAGU_PATCH_NAME;
+
+import com.dx168.patchsdk.bean.PatchInfo;
 
 /**
  * Created by jianjun.lin on 2016/10/27.
