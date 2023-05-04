@@ -120,4 +120,8 @@
     <delete id="deleteById" >
         DELETE FROM t_patch_info where id = #{id}
     </delete>
+
+    <delete id="deleteByAppUid">
+        DELETE from t_patch_info where app_uid = #{appUid}
+    </delete>
 </mapper>

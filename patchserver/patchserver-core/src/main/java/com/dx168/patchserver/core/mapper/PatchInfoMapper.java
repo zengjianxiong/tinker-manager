@@ -20,11 +20,13 @@ public interface PatchInfoMapper {
 
     PatchInfo findByUid(String uid);
 
-    PatchInfo findByIdAndAppUid(@Param("id") Integer id,@Param("appUid") String appUid);
+    PatchInfo findByIdAndAppUid(@Param("id") Integer id, @Param("appUid") String appUid);
 
     void updateStatus(PatchInfo patchInfo);
 
     void updateCount(@Param("id") Integer id, @Param("applySuccessSize") int applySuccessSize, @Param("applySize") int applySize, @Param("updatedAt") Date updatedAt);
 
     void deleteById(Integer id);
+
+    void deleteByAppUid(String appUid);
 }

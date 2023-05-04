@@ -84,4 +84,9 @@
         id = #{id,jdbcType=INTEGER}
     </update>
 
+<!--    void deleteApp(@Param("appUid") String appUid);-->
+
+    <delete id="deleteApp">
+        DELETE from t_app_info where uid = #{uid}
+    </delete>
 </mapper>

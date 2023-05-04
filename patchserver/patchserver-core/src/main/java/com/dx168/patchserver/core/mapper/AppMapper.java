@@ -23,4 +23,6 @@ public interface AppMapper {
     AppInfo findByUid(String uid);
 
     void updatePackageName(AppInfo appInfo);
+
+    void deleteApp(String uid);
 }

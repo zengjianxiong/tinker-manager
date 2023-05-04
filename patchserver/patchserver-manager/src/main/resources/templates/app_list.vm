@@ -31,7 +31,8 @@
 
 <div class="bd-example">
 
-    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -49,7 +50,8 @@
 
                         <div class="form-group">
                             <label for="app-package-name" class="form-control-label">应用包名:</label>
-                            <input type="text" class="form-control" id="app-package-name" maxlength="32" placeholder="Android的包名 iOS的bundle_id">
+                            <input type="text" class="form-control" id="app-package-name" maxlength="32"
+                                   placeholder="Android的包名 iOS的bundle_id">
                         </div>
 
                         <div class="form-group">
@@ -87,7 +89,8 @@
         <!-- Top Menu Items -->
         <ul class="nav navbar-right top-nav">
             <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> $!restR.data.user.username <b class="caret"></b></a>
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i
+                        class="fa fa-user"></i> $!restR.data.user.username <b class="caret"></b></a>
                 <ul class="dropdown-menu">
                     <li>
                         <a href="#springUrl('/logout')"><i class="fa fa-fw fa-power-off"></i> Log Out</a>
@@ -99,7 +102,8 @@
         <div class="collapse navbar-collapse navbar-ex1-collapse">
             <ul class="nav navbar-nav side-nav">
                 <li>
-                    <a href="javascript:;" data-toggle="collapse" data-target="#demo"><i class="fa fa-fw fa-arrows-v"></i> 全部应用 <i class="fa fa-fw fa-caret-down"></i></a>
+                    <a href="javascript:;" data-toggle="collapse" data-target="#demo"><i
+                            class="fa fa-fw fa-arrows-v"></i> 全部应用 <i class="fa fa-fw fa-caret-down"></i></a>
                     <ul id="demo" class="collapse">
                         <li>
                             <a href="#springUrl('/app/list')">全部应用</a>
@@ -113,9 +117,9 @@
                     </ul>
                 </li>
 
-##                <li>
-##                    <a href="blank-page.html"><i class="fa fa-fw fa-file"></i> 应用管理</a>
-##                </li>
+                ##                <li>
+                ##                    <a href="blank-page.html"><i class="fa fa-fw fa-file"></i> 应用管理</a>
+                ##                </li>
 
                 <li class="active">
                     <a href="#springUrl('/app/list')"><i class="fa fa-fw fa-dashboard"></i> 应用列表</a>
@@ -154,14 +158,16 @@
                         应用列表 <small></small>
                     </h2>
 
-##                    <p><a href="#springUrl('/console')">首页</a></p>
+                    ##                    <p><a href="#springUrl('/console')">首页</a></p>
 
 
-##                    <p><a href="#springUrl('/app/create')">创建应用</a></p>
+                    ##                    <p><a href="#springUrl('/app/create')">创建应用</a></p>
 
                     #if($!restR.data.user.childAccount == false)
                         <p>
-                            <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#exampleModal" data-whatever="@getbootstrap">创建应用</button>
+                            <button type="button" class="btn btn-info btn-sm" data-toggle="modal"
+                                    data-target="#exampleModal" data-whatever="@getbootstrap">创建应用
+                            </button>
                         </p>
                     #end
                 </div>
@@ -182,8 +188,10 @@
                     <tr>
                         <th>$!appInfo.appname</th>
                         <th>$!appInfo.platform</th>
-                        <th>$!appInfo.uid</th>
-                        <th><p><a href="#springUrl('')/app?appUid=$!appInfo.uid">管理</a></p></th>
+                        <th>$!{appInfo.uid}</th>
+                        <th><a href="#springUrl('')/app?appUid=$!appInfo.uid">管理</a>
+                            <a href="javascript:void(0);" onclick="deleteApp(this.type)" type="$!appInfo.uid">删除</a>
+                        </th>
                     </tr>
                 #end
             </table>
@@ -204,9 +212,9 @@
 
 <script>
     console.log('ddd');
-    $(document).ready(function(){
+    $(document).ready(function () {
         function isPackageName(str) {
-            reg=/^[a-zA-Z0-9-\.]{1,61}$/;
+            reg = /^[a-zA-Z0-9-\.]{1,61}$/;
             if (!reg.test(str)) {
                 return false;
             }
@@ -238,25 +246,25 @@
             var dialog = bootbox.dialog({
                 message: '<p><i class="fa fa-spin fa-spinner"></i> 正在处理...</p>'
             });
-            dialog.init(function(){
+            dialog.init(function () {
                 jQuery.ajax({
-                    url:  "#springUrl('')/app/create?appname=" + $("#app-name").val() + "&description=" + $("#app-desc").val() + "&packageName=" + $("#app-package-name").val(),
+                    url: "#springUrl(
+                        '')/app/create?appname=" + $("#app-name").val() + "&description=" + $("#app-desc").val() + "&packageName=" + $("#app-package-name").val(),
                     type: 'post',
-                    success:function(res, textStatus, jqXHR){
+                    success: function (res, textStatus, jqXHR) {
                         if (res.code == 200) {
                             dialog.find('.bootbox-body').html('添加成功!');
-                            setTimeout(function(){
+                            setTimeout(function () {
                                 window.location.href = window.location.href;
                             }, 500);
                         } else {
                             dialog.find('.bootbox-body').html("<font color='red'>" + res.message + "</font>");
                         }
                     },
-                    error:function(XMLHttpRequest, textStatus, errorThrown){
+                    error: function (XMLHttpRequest, textStatus, errorThrown) {
                         if (XMLHttpRequest.status == 401) {
                             window.location.href = window.location.href;
-                        }
-                        else {
+                        } else {
                             dialog.find('.bootbox-body').html("<font color='red'>系统异常!</font>");
                         }
                     }
@@ -264,6 +272,55 @@
             });
         });
     });
+
+    function deleteApp(uid) {
+        console.log(uid)
+        bootbox.confirm({
+            message: "确定删除这个APP吗?",
+            buttons: {
+                confirm: {
+                    label: 'Yes',
+                    className: 'btn-success'
+                },
+                cancel: {
+                    label: 'No',
+                    className: 'btn-danger'
+                }
+            },
+            callback: function (result) {
+                console.log('This was logged in the callback: ' + result);
+
+                if (!result) {
+                    return;
+                }
+
+                var dialog = bootbox.dialog({
+//                title: 'A custom dialog with init',
+                    message: '<p><i class="fa fa-spin fa-spinner"></i> 正在处理...</p>'
+                });
+                dialog.init(function () {
+                    jQuery.ajax({
+                        url: "#springUrl('')/app/delete?appUid="+uid,
+                        type: 'post',
+                        success: function (res, textStatus, jqXHR) {
+                            if (res.code == 200) {
+                                dialog.find('.bootbox-body').html('删除成功!');
+
+                                setTimeout(function () {
+                                    window.location.href = window.location.href;
+                                }, 500);
+                            } else {
+                                dialog.find('.bootbox-body').html(res.message);
+                            }
+                        },
+                        error: function (XMLHttpRequest, textStatus, errorThrown) {
+                            dialog.find('.bootbox-body').html('系统异常!');
+                        }
+                    });
+                });
+            }
+        });
+    }
 </script>
 </body>
 

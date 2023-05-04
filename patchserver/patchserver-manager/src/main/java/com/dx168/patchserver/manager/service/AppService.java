@@ -2,6 +2,7 @@ package com.dx168.patchserver.manager.service;
 
 import com.dx168.patchserver.core.domain.ChildUserApp;
 import com.dx168.patchserver.core.mapper.ChildUserAppMapper;
+import com.dx168.patchserver.core.mapper.PatchInfoMapper;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,6 +12,7 @@ import com.dx168.patchserver.core.domain.VersionInfo;
 import com.dx168.patchserver.core.mapper.AppMapper;
 import com.dx168.patchserver.core.mapper.VersionInfoMapper;
 import com.dx168.patchserver.core.utils.BizException;
+
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -31,14 +33,17 @@ public class AppService {
     @Autowired
     private ChildUserAppMapper childUserAppMapper;
 
-    public AppInfo addApp(BasicUser basicUser,String appname,String description,String packageName,String platform) {
+    @Autowired
+    private PatchInfoMapper patchInfoMapper;
+
+    public AppInfo addApp(BasicUser basicUser, String appname, String description, String packageName, String platform) {
         Integer rootUserId = accountService.getRootUserId(basicUser);
-        AppInfo appInfo = appMapper.findByUserIdAndName(rootUserId,appname);
+        AppInfo appInfo = appMapper.findByUserIdAndName(rootUserId, appname);
         if (appInfo != null) {
             throw new BizException("名字为: " + appname + "的应用已存在");
         }
 
-        if (appMapper.findByUserIdAndPackageName(rootUserId,packageName) != null) {
+        if (appMapper.findByUserIdAndPackageName(rootUserId, packageName) != null) {
             throw new BizException("包名为: " + packageName + "的应用已存在");
         }
 
@@ -58,7 +63,7 @@ public class AppService {
     }
 
     public String generateAppUid(Integer rootUserId) {
-        int x = (int)(Math.random() * 9000) + 1000;
+        int x = (int) (Math.random() * 9000) + 1000;
         String nowStr = new SimpleDateFormat("yyyyMMddHHmmssSSS").format(new Date());
         return nowStr + "-" + (rootUserId + x);
     }
@@ -89,7 +94,7 @@ public class AppService {
     }
 
     public VersionInfo findVersionByUidAndVersionName(AppInfo appInfo, String versionName) {
-        return versionInfoMapper.findByUidAndVersionName(appInfo.getUid(),versionName);
+        return versionInfoMapper.findByUidAndVersionName(appInfo.getUid(), versionName);
     }
 
     public void saveVersionInfo(VersionInfo versionInfo) {
@@ -112,6 +117,12 @@ public class AppService {
         appMapper.updatePackageName(appInfo);
     }
 
+    public void deleteApp(String appUid) {
+        versionInfoMapper.deleteVersion(appUid);
+        patchInfoMapper.deleteByAppUid(appUid);
+        appMapper.deleteApp(appUid);
+    }
+
     public List<ChildUserApp> findAllChildUserAppByUserId(Integer userId) {
         return childUserAppMapper.findAllByUserId(userId);
     }
@@ -125,7 +136,7 @@ public class AppService {
         return appUids;
     }
 
-    public void createChildUserAppMapping(BasicUser rootUser,Integer childUserId,ArrayList<String> appUids) {
+    public void createChildUserAppMapping(BasicUser rootUser, Integer childUserId, ArrayList<String> appUids) {
         if (appUids != null) {
             appUids.remove("");
         }

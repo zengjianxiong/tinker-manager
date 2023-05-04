@@ -15,5 +15,7 @@ public interface VersionInfoMapper {
 
     List<VersionInfo> findAllByAppUid(String appUid);
 
+    void deleteVersion(@Param("appUid")String appUid);
+
     VersionInfo findByUidAndVersionName(@Param("appUid") String appUid,@Param("versionName") String versionName);
 }
